@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WEB TO APK</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #00ffe5;
+      text-shadow: 1px 1px 5px #000;
+    }
+    #inputArea {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #00ffe5aa;
+      display: none;
+    }
+    input {
+      padding: 10px;
+      width: 300px;
+      font-size: 18px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      margin-bottom: 20px;
+    }
+    button {
+      background-color: #00ffe5;
+      color: #000;
+      font-size: 18px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    button:hover {
+      background-color: #00ccaa;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="title">WEB TO APK</h1>
+  <div id="inputArea">
+    <p>Please enter your web app link:</p>
+    <input type="url" id="linkInput" placeholder="https://example.com">
+    <br>
+    <button onclick="saveLink()">Save & Open</button>
+  </div>
+
+  <script>
+    const KEY = "NIRANJAN";
+    const savedLink = localStorage.getItem(KEY);
+
+    if (savedLink) {
+      window.location.href = savedLink;
+    } else {
+      document.getElementById("inputArea").style.display = "block";
+    }
+
+    function saveLink() {
+      const link = document.getElementById("linkInput").value.trim();
+      if (link && link.startsWith("http")) {
+        localStorage.setItem(KEY, link);
+        window.location.href = link;
+      } else {
+        alert("Please enter a valid URL starting with http or https.");
+      }
+    }
+  </script>
+</body>
+</html>
