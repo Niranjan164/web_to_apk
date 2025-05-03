@@ -38,6 +38,7 @@
       border: none;
       outline: none;
       margin-bottom: 20px;
+      text-transform: lowercase;
     }
     button {
       background-color: #00ffe5;
@@ -47,35 +48,39 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #00cbbf;
     }
   </style>
 </head>
 <body>
   <h1>WEB TO APK</h1>
   <div id="inputArea">
-    <input type="text" id="urlInput" placeholder="Enter your website URL" />
-    <button onclick="saveAndOpen()">Save & Open</button>
+    <input type="text" id="urlInput" placeholder="Enter your URL (e.g., https://example.com)" />
+    <button onclick="saveURL()">Save & Open</button>
   </div>
 
   <script>
-    const savedURL = localStorage.getItem("myLink");
+    const savedURL = localStorage.getItem("savedURL");
 
     if (savedURL) {
-      // Automatically open saved URL
+      // If a URL is already saved, open it immediately
       window.location.href = savedURL;
     } else {
-      // Show input if no URL found
+      // Show input area if no URL is stored
       document.getElementById("inputArea").style.display = "flex";
     }
 
-    function saveAndOpen() {
-      const url = document.getElementById("urlInput").value.trim();
-      if (url) {
-        localStorage.setItem("myLink", url);
-        window.location.href = url;
-      } else {
-        alert("Please enter a valid URL.");
+    function saveURL() {
+      let url = document.getElementById("urlInput").value.trim().toLowerCase();
+      if (!url.startsWith("http")) {
+        alert("Please include http:// or https:// in the URL.");
+        return;
       }
+      localStorage.setItem("savedURL", url);
+      window.location.href = url;
     }
   </script>
 </body>
