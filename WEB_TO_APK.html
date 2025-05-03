@@ -2,10 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <h1>
-  WEB TO APK<br>
-  <span style="font-size: 24px; color: #00ff00;">BY K.NIRANJAN KUMAR</span>
-</h1>
+  <title>WEB TO APK</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       margin: 0;
@@ -23,6 +21,13 @@
       margin-bottom: 20px;
       color: #00ffe5;
       text-shadow: 1px 1px 5px #000;
+      text-align: center;
+    }
+    h1 span {
+      font-size: 24px;
+      color: #00ff00;
+      display: block;
+      margin-top: 10px;
     }
     #inputArea {
       background: rgba(255, 255, 255, 0.1);
@@ -59,7 +64,11 @@
   </style>
 </head>
 <body>
-  <h1>WEB TO APK</h1>
+  <h1>
+    WEB TO APK
+    <span>BY K.NIRANJAN KUMAR</span>
+  </h1>
+
   <div id="inputArea">
     <input type="text" id="urlInput" placeholder="Enter your URL (e.g., https://example.com)" />
     <button onclick="saveURL()">Save & Open</button>
@@ -69,10 +78,8 @@
     const savedURL = localStorage.getItem("savedURL");
 
     if (savedURL) {
-      // If a URL is already saved, open it immediately
       window.location.href = savedURL;
     } else {
-      // Show input area if no URL is stored
       document.getElementById("inputArea").style.display = "flex";
     }
 
