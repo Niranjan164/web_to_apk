@@ -27,6 +27,7 @@
       border-radius: 15px;
       box-shadow: 0 0 20px #00ffe5aa;
       display: none;
+      text-align: center;
     }
     input {
       padding: 10px;
@@ -37,18 +38,20 @@
       outline: none;
       margin-bottom: 20px;
     }
-    button {
-      background-color: #00ffe5;
-      color: #000;
+    .btn {
+      background: linear-gradient(to right, #ff416c, #ff4b2b);
+      color: #fff;
       font-size: 18px;
-      padding: 10px 20px;
+      padding: 10px 25px;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       cursor: pointer;
       transition: 0.3s ease;
+      margin: 10px;
     }
-    button:hover {
-      background-color: #00ccaa;
+    .btn:hover {
+      background: linear-gradient(to right, #ff4b2b, #ff416c);
+      transform: scale(1.05);
     }
   </style>
 </head>
@@ -58,21 +61,18 @@
     <p>Please enter your web app link:</p>
     <input type="url" id="linkInput" placeholder="https://example.com">
     <br>
-    <button onclick="saveLink()">Save & Open</button>
+    <button class="btn" onclick="saveLink()">Save & Open</button>
+    <button class="btn" onclick="openSavedLink()">Open Saved Link</button>
   </div>
 
   <script>
     const KEY = "NIRANJAN";
     const savedLink = localStorage.getItem(KEY);
 
-    // Ensure user is only on root page before redirect
+    // Redirect to correct path if needed
     if (window.location.pathname !== "/web_to_apk/" && window.location.hostname === "niranjan164.github.io") {
       window.location.href = "https://niranjan164.github.io/web_to_apk/";
-    } else if (savedLink) {
-      // If link exists, open it in the same tab
-      window.location.href = savedLink;
     } else {
-      // Show input if no link saved
       document.getElementById("inputArea").style.display = "block";
     }
 
@@ -80,9 +80,17 @@
       const link = document.getElementById("linkInput").value.trim();
       if (link && link.startsWith("http")) {
         localStorage.setItem(KEY, link);
-        window.location.href = link; // open in same tab
+        window.open(link, '_blank'); // open in new tab
       } else {
         alert("Please enter a valid URL starting with http or https.");
+      }
+    }
+
+    function openSavedLink() {
+      if (savedLink) {
+        window.open(savedLink, '_blank');
+      } else {
+        alert("No saved link found. Please enter and save a link first.");
       }
     }
   </script>
