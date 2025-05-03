@@ -45,40 +45,36 @@
       font-size: 18px;
       padding: 10px 20px;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    button:hover {
-      background-color: #00ccb8;
     }
   </style>
 </head>
 <body>
   <h1>WEB TO APK</h1>
   <div id="inputArea">
-    <input type="text" id="linkInput" placeholder="Enter your web link here..." />
-    <button onclick="saveAndOpenLink()">Submit</button>
+    <input type="text" id="urlInput" placeholder="Enter your website URL" />
+    <button onclick="saveAndOpen()">Save & Open</button>
   </div>
 
   <script>
-    const savedLink = localStorage.getItem("savedWebLink");
+    const savedURL = localStorage.getItem("myLink");
 
-    if (savedLink) {
-      // Open the link automatically if it's already saved
-      window.location.href = savedLink;
+    if (savedURL) {
+      // Automatically open saved URL
+      window.location.href = savedURL;
     } else {
-      // Show input area if no link is saved yet
+      // Show input if no URL found
       document.getElementById("inputArea").style.display = "flex";
     }
 
-    function saveAndOpenLink() {
-      const link = document.getElementById("linkInput").value.trim();
-      if (link) {
-        localStorage.setItem("savedWebLink", link);
-        window.location.href = link;
+    function saveAndOpen() {
+      const url = document.getElementById("urlInput").value.trim();
+      if (url) {
+        localStorage.setItem("myLink", url);
+        window.location.href = url;
       } else {
-        alert("Please enter a valid link.");
+        alert("Please enter a valid URL.");
       }
     }
   </script>
