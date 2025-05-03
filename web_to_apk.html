@@ -26,7 +26,9 @@
       padding: 30px;
       border-radius: 15px;
       box-shadow: 0 0 20px #00ffe5aa;
-      display: block;
+      display: none;
+      flex-direction: column;
+      align-items: center;
     }
     input {
       padding: 10px;
@@ -43,41 +45,40 @@
       font-size: 18px;
       padding: 10px 20px;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
-      margin: 5px;
+      transition: background-color 0.3s;
     }
     button:hover {
-      background-color: #00ccb3;
+      background-color: #00ccb8;
     }
   </style>
 </head>
 <body>
   <h1>WEB TO APK</h1>
   <div id="inputArea">
-    <input type="text" id="urlInput" placeholder="Enter website URL (https://...)">
-    <br>
-    <button onclick="saveURL()">Save Link</button>
-    <button onclick="openSavedURL()">Open Link</button>
+    <input type="text" id="linkInput" placeholder="Enter your web link here..." />
+    <button onclick="saveAndOpenLink()">Submit</button>
   </div>
 
   <script>
-    function saveURL() {
-      const url = document.getElementById("urlInput").value.trim();
-      if (url.startsWith("http://") || url.startsWith("https://")) {
-        localStorage.setItem("savedLink", url);
-        alert("URL saved successfully!");
-      } else {
-        alert("Please enter a valid URL starting with http:// or https://");
-      }
+    const savedLink = localStorage.getItem("savedWebLink");
+
+    if (savedLink) {
+      // Open the link automatically if it's already saved
+      window.location.href = savedLink;
+    } else {
+      // Show input area if no link is saved yet
+      document.getElementById("inputArea").style.display = "flex";
     }
 
-    function openSavedURL() {
-      const savedURL = localStorage.getItem("savedLink");
-      if (savedURL) {
-        window.open(savedURL, "_blank");
+    function saveAndOpenLink() {
+      const link = document.getElementById("linkInput").value.trim();
+      if (link) {
+        localStorage.setItem("savedWebLink", link);
+        window.location.href = link;
       } else {
-        alert("No saved URL found in localStorage.");
+        alert("Please enter a valid link.");
       }
     }
   </script>
