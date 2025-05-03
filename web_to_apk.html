@@ -26,8 +26,7 @@
       padding: 30px;
       border-radius: 15px;
       box-shadow: 0 0 20px #00ffe5aa;
-      display: none;
-      text-align: center;
+      display: block;
     }
     input {
       padding: 10px;
@@ -38,59 +37,47 @@
       outline: none;
       margin-bottom: 20px;
     }
-    .btn {
-      background: linear-gradient(to right, #ff416c, #ff4b2b);
-      color: #fff;
+    button {
+      background-color: #00ffe5;
+      color: #000;
       font-size: 18px;
-      padding: 10px 25px;
+      padding: 10px 20px;
       border: none;
-      border-radius: 12px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: 0.3s ease;
-      margin: 10px;
+      margin: 5px;
     }
-    .btn:hover {
-      background: linear-gradient(to right, #ff4b2b, #ff416c);
-      transform: scale(1.05);
+    button:hover {
+      background-color: #00ccb3;
     }
   </style>
 </head>
 <body>
-  <h1 id="title">WEB TO APK</h1>
+  <h1>WEB TO APK</h1>
   <div id="inputArea">
-    <p>Please enter your web app link:</p>
-    <input type="url" id="linkInput" placeholder="https://example.com">
+    <input type="text" id="urlInput" placeholder="Enter website URL (https://...)">
     <br>
-    <button class="btn" onclick="saveLink()">Save & Open</button>
-    <button class="btn" onclick="openSavedLink()">Open Saved Link</button>
+    <button onclick="saveURL()">Save Link</button>
+    <button onclick="openSavedURL()">Open Link</button>
   </div>
 
   <script>
-    const KEY = "NIRANJAN";
-    const savedLink = localStorage.getItem(KEY);
-
-    // Redirect to correct path if needed
-    if (window.location.pathname !== "/web_to_apk/" && window.location.hostname === "niranjan164.github.io") {
-      window.location.href = "https://niranjan164.github.io/web_to_apk/";
-    } else {
-      document.getElementById("inputArea").style.display = "block";
-    }
-
-    function saveLink() {
-      const link = document.getElementById("linkInput").value.trim();
-      if (link && link.startsWith("http")) {
-        localStorage.setItem(KEY, link);
-        window.open(link, '_blank'); // open in new tab
+    function saveURL() {
+      const url = document.getElementById("urlInput").value.trim();
+      if (url.startsWith("http://") || url.startsWith("https://")) {
+        localStorage.setItem("savedLink", url);
+        alert("URL saved successfully!");
       } else {
-        alert("Please enter a valid URL starting with http or https.");
+        alert("Please enter a valid URL starting with http:// or https://");
       }
     }
 
-    function openSavedLink() {
-      if (savedLink) {
-        window.open(savedLink, '_blank');
+    function openSavedURL() {
+      const savedURL = localStorage.getItem("savedLink");
+      if (savedURL) {
+        window.open(savedURL, "_blank");
       } else {
-        alert("No saved link found. Please enter and save a link first.");
+        alert("No saved URL found in localStorage.");
       }
     }
   </script>
