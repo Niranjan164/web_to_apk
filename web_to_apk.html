@@ -65,9 +65,14 @@
     const KEY = "NIRANJAN";
     const savedLink = localStorage.getItem(KEY);
 
-    if (savedLink) {
-      window.open(savedLink, '_blank');
+    // Ensure user is only on root page before redirect
+    if (window.location.pathname !== "/web_to_apk/" && window.location.hostname === "niranjan164.github.io") {
+      window.location.href = "https://niranjan164.github.io/web_to_apk/";
+    } else if (savedLink) {
+      // If link exists, open it in the same tab
+      window.location.href = savedLink;
     } else {
+      // Show input if no link saved
       document.getElementById("inputArea").style.display = "block";
     }
 
@@ -75,7 +80,7 @@
       const link = document.getElementById("linkInput").value.trim();
       if (link && link.startsWith("http")) {
         localStorage.setItem(KEY, link);
-        window.open(link, '_blank');
+        window.location.href = link; // open in same tab
       } else {
         alert("Please enter a valid URL starting with http or https.");
       }
