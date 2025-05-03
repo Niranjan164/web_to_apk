@@ -66,16 +66,16 @@
     const savedLink = localStorage.getItem(KEY);
 
     if (savedLink) {
-      window.location.href = savedLink; // Open in same tab
+      window.location.href = savedLink; // Opens the saved link in the same tab
     } else {
-      document.getElementById("inputArea").style.display = "block";
+      document.getElementById("inputArea").style.display = "block"; // Shows input area if no link is found
     }
 
     function saveLink() {
       const link = document.getElementById("linkInput").value.trim();
       if (link && link.startsWith("http")) {
-        localStorage.setItem(KEY, link);
-        window.location.href = link; // Open in same tab
+        localStorage.setItem(KEY, link); // Saves the link to local storage
+        window.location.href = link; // Opens the saved link in the same tab
       } else {
         alert("Please enter a valid URL starting with http or https.");
       }
